@@ -224,14 +224,16 @@ class LeNet(nn.Module):
 
 def main():
     ########### Reproducable ###############
-    random.seed(0)
-    np.random.seed(1)
-    torch.manual_seed(1)
-    torch.cuda.manual_seed_all(1)
+    seed = 1
+    print(seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
     def worker_init_fn(worker_id):
-        np.random.seed(0+worker_id)
+        np.random.seed(seed+worker_id)
     print('random number: ', torch.randn(2,3))
     ########################################
 
