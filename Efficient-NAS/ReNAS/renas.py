@@ -253,8 +253,11 @@ def main():
     criterion = nn.MSELoss()
     model = LeNet().cuda()
     optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+    
+    start = time.perf_counter()
     model = train(model, dataloader, criterion, optimizer, num_epochs=args.num_epochs, use_pair_loss=True)
-
+    print('train ranker using time {:.4f} seconds'.format(time.perf_counter()-start))
+    
     pred_labels, labels = test(model, dataloader)
     s = pred_labels.argsort()
     
@@ -262,7 +265,7 @@ def main():
     for i in range(args.count):
         if max_l < label[s[-i-1]]:
             max_l = label[s[-i-1]]
-            
+    print('train ranker and search using time {:.4f} seconds'.format(time.perf_counter()-start))
     print("search model acc: %.2f"%(max_l*100))
     
 if __name__ == "__main__":
