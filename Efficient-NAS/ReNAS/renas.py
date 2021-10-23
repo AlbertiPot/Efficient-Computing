@@ -224,7 +224,7 @@ class LeNet(nn.Module):
 
 def main():
     ########### Reproducable ###############
-    seed = 1
+    seed = 20211117
     print(seed)
     random.seed(seed)
     np.random.seed(seed)
